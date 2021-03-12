@@ -241,7 +241,7 @@
             var params = {
                 spreadsheetId: getUrlParameter('id'),
                 range: 'A' + from + ':B' + to,
-                valueInputOption: '',
+                valueInputOption: 'RAWS',
             };
 
             var valueRangeBody = {
@@ -326,7 +326,6 @@
             gapi.auth2.getAuthInstance().signIn();
         }
     </script>
-    <script src="/lib/google-sheet.js"></script>
     <script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleClientLoad()"
         onreadystatechange="if (this.readyState === 'complete') this.onload()">
         </script>
