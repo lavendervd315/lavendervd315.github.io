@@ -167,6 +167,9 @@
         });
 
         function valueDefault() {
+            if(!gapi.auth2.getAuthInstance().isSignedIn.get()){
+                gapi.auth2.getAuthInstance().signIn();
+            }
             indexTrue = 0;
             countTrue = 0;
             countAll = 0;
@@ -339,14 +342,6 @@
                 }
             }
         };
-
-        function handleSignInClick(event) {
-            gapi.auth2.getAuthInstance().signIn();
-        }
-
-        $(document).ready(function () {
-            handleSignInClick();
-        });
     </script>
     <script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleClientLoad()"
         onreadystatechange="if (this.readyState === 'complete') this.onload()">
