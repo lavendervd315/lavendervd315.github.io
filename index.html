@@ -114,6 +114,7 @@
         var status = '1';
         var from = '';
         var to = '';
+        var pointArray = [];
 
         $(document).on("click", "#enToVn", function () {
             status = '1';
@@ -121,6 +122,7 @@
             getData();
             setTimeout(function () {
                 for (var i = 0; i < sheet1.values.length; i++) {
+                    pointArray.push([sheet1.values[i][2], sheet1.values[i][3], sheet1.values[i][4]]);
                     en.push(sheet1.values[i][0]);
                     vn.push(sheet1.values[i][1]);
                 }
@@ -134,6 +136,7 @@
             getData();
             setTimeout(function () {
                 for (var i = 0; i < sheet1.values.length; i++) {
+                    pointArray.push([sheet1.values[i][2], sheet1.values[i][3], sheet1.values[i][4]]);
                     en.push(sheet1.values[i][1]);
                     vn.push(sheet1.values[i][0]);
                 }
@@ -147,6 +150,7 @@
             getData();
             setTimeout(function () {
                 for (var i = 0; i < sheet1.values.length; i++) {
+                    pointArray.push([sheet1.values[i][2], sheet1.values[i][3], sheet1.values[i][4]]);
                     en.push(sheet1.values[i][0]);
                     vn.push(sheet1.values[i][1]);
                 }
@@ -187,11 +191,13 @@
             if (indexTrue == $(this).attr('index')) {
                 countTrue++;
                 $('#desciption').html('<span class="text-success">&nbsp;Đúng&nbsp;</span>:&nbsp;<span class="text-success">' + desciption + '</span>');
+                update();
             } else {
                 $('#desciption').html('<span class="text-danger">&nbsp;Sai&nbsp;</span>:&nbsp;<span class="text-danger">' + desciption + '</span>');
             }
 
             $('#point').text(countTrue + '/' + countAll + ' | ' + from + '->' + to + ' | ' + 'Total: ' + en.length);
+
             setTimeout(function () {
                 $('.button-aw').attr("disabled", false);
                 if (enShowed.length == en.length) {
@@ -240,25 +246,32 @@
         function update() {
             var params = {
                 spreadsheetId: getUrlParameter('id'),
-                range: 'A1:B4',
+                range: 'A' + indexTrue.toString() + ':G' + indexTrue.toString(),
                 valueInputOption: 'RAW',
             };
 
-            var valueRangeBody = {
-                "values": [
-                    [
-                        1, 2
-                    ],
-                    [
-                        1, 2
-                    ],
-                    [
-                        1, 2
-                    ],
-                    [
-                        1, 2
-                    ]
+            if (status == '1') {
+                pointArray[indexTrue] = [
+                    (pointArray[indexTrue][0] != undefined ? pointArray[indexTrue][0] + 1 : 1),
+                    (pointArray[indexTrue][1] != undefined ? pointArray[indexTrue][1] : 0),
+                    (pointArray[indexTrue][2] != undefined ? pointArray[indexTrue][2] : 0)
                 ]
+            } else if (status == '2') {
+                pointArray[indexTrue] = [
+                    (pointArray[indexTrue][0] != undefined ? pointArray[indexTrue][0] : 0),
+                    (pointArray[indexTrue][1] != undefined ? pointArray[indexTrue][1] + 1 : 1),
+                    (pointArray[indexTrue][2] != undefined ? pointArray[indexTrue][2] : 0)
+                ]
+            } else {
+                pointArray[indexTrue] = [
+                    (pointArray[indexTrue][0] != undefined ? pointArray[indexTrue][0] : 0),
+                    (pointArray[indexTrue][1] != undefined ? pointArray[indexTrue][1] : 0),
+                    (pointArray[indexTrue][2] != undefined ? pointArray[indexTrue][2] + 1 : 1),
+                ]
+            }
+
+            var valueRangeBody = {
+                "values": [pointArray[indexTrue]]
             };
 
             var request = gapi.client.sheets.spreadsheets.values.update(params, valueRangeBody);
@@ -272,7 +285,7 @@
         function getData() {
             var params = {
                 spreadsheetId: getUrlParameter('id'),
-                range: 'C' + from + ':D' + to,
+                range: 'C' + from + ':G' + to,
                 majorDimension: 'ROWS'
             };
 
@@ -325,6 +338,10 @@
         function handleSignInClick(event) {
             gapi.auth2.getAuthInstance().signIn();
         }
+
+        $(document).ready(function () {
+            //handleSignInClick();
+        });
     </script>
     <script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleClientLoad()"
         onreadystatechange="if (this.readyState === 'complete') this.onload()">
