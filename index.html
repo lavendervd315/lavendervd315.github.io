@@ -249,7 +249,7 @@
         function update() {
             var params = {
                 spreadsheetId: getUrlParameter('id'),
-                range: 'C' + from + ':G' + to,
+                range: 'E' + (indexTrue + parseInt(from)).toString() + ':G' + (indexTrue + parseInt(to)).toString(),
                 valueInputOption: 'RAW',
             };
 
