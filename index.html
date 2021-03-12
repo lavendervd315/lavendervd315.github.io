@@ -196,7 +196,8 @@
                 $('#desciption').html('<span class="text-danger">&nbsp;Sai&nbsp;</span>:&nbsp;<span class="text-danger">' + desciption + '</span>');
             }
 
-            $('#point').text(countTrue + '/' + countAll + ' | ' + from + '->' + to + ' | ' + 'Total: ' + en.length);
+            $('#point').text(countTrue + '/' + countAll + ' | ' + from + '->' + to + ' | ' + 'Ignore/Total ' + en.length + '/' 
+                + pointArray.filter(a => parseInt(a[0]) == 10 && parseInt(a[1]) == 10 && parseInt(a[2]) == 10));
 
             setTimeout(function () {
                 $('.button-aw').attr("disabled", false);
