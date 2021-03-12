@@ -212,7 +212,10 @@
         function refresh() {
             do {
                 indexTrue = Math.floor(Math.random() * en.length);
-            } while ($.inArray(indexTrue, enShowed) > -1);
+            } while ($.inArray(indexTrue, enShowed) > -1 
+                    || (parseInt(pointArray[indexTrue][0]) == 10 
+                    && parseInt(pointArray[indexTrue][1]) == 10 
+                    && parseInt(pointArray[indexTrue][2]) == 10));
             enShowed.push(indexTrue);
             if (status != '3') {
                 $("#question").html('<span class="questionContent">' + en[indexTrue] + '</span>');
@@ -252,21 +255,21 @@
 
             if (status == '1') {
                 pointArray[indexTrue] = [
-                    (pointArray[indexTrue][0] != undefined ? pointArray[indexTrue][0] + 1 : 1),
+                    (pointArray[indexTrue][0] != undefined ? parseInt(pointArray[indexTrue][0]) + 1 : 1),
                     (pointArray[indexTrue][1] != undefined ? pointArray[indexTrue][1] : 0),
                     (pointArray[indexTrue][2] != undefined ? pointArray[indexTrue][2] : 0)
                 ]
             } else if (status == '2') {
                 pointArray[indexTrue] = [
                     (pointArray[indexTrue][0] != undefined ? pointArray[indexTrue][0] : 0),
-                    (pointArray[indexTrue][1] != undefined ? pointArray[indexTrue][1] + 1 : 1),
+                    (pointArray[indexTrue][1] != undefined ? parseInt(pointArray[indexTrue][1]) + 1 : 1),
                     (pointArray[indexTrue][2] != undefined ? pointArray[indexTrue][2] : 0)
                 ]
             } else {
                 pointArray[indexTrue] = [
                     (pointArray[indexTrue][0] != undefined ? pointArray[indexTrue][0] : 0),
                     (pointArray[indexTrue][1] != undefined ? pointArray[indexTrue][1] : 0),
-                    (pointArray[indexTrue][2] != undefined ? pointArray[indexTrue][2] + 1 : 1),
+                    (pointArray[indexTrue][2] != undefined ? parseInt(pointArray[indexTrue][2]) + 1 : 1),
                 ]
             }
 
