@@ -260,9 +260,9 @@
             do {
                 indexTrue = Math.floor(Math.random() * en.length);
             } while ($.inArray(indexTrue, enShowed) > -1
-                || (parseInt(pointArray[indexTrue][0]) == 10
-                    && parseInt(pointArray[indexTrue][1]) == 10
-                    && parseInt(pointArray[indexTrue][2]) == 10));
+                || (parseInt(pointArray[indexTrue][0]) == 5
+                    && parseInt(pointArray[indexTrue][1]) == 5
+                    && parseInt(pointArray[indexTrue][2]) == 5));
             enShowed.push(indexTrue);
             if (status != '3') {
                 $("#question").html('<span class="questionContent">' + en[indexTrue] + '</span>');
