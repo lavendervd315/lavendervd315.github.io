@@ -3,14 +3,13 @@
 
 <head>
     <title>Lavender</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="google-signin-client_id"
         content="788558208749-3esc9rtmijr48kuhkgsfnudret4l25hb.apps.googleusercontent.com">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
-        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <script src='https://code.responsivevoice.org/responsivevoice.js'></script>
     <style>
         .button-aw {
@@ -97,8 +96,34 @@
                 <div class="w-100 d-flex justify-content-center mb-2">
                     <input type="button" class="btn btn-outline-primary button-aw" id="answer3" value="D" index="" />
                 </div>
-                <div class="w-100 d-flex justify-content-center">
+                <div class="w-100 d-flex justify-content-center mb-2">
                     <input type="button" class="btn btn-outline-primary button-aw" id="answer4" value="E" index="" />
+                </div>
+                <div class="w-100 d-flex justify-content-center">
+                    <button type="button" class="btn btn-primary " data-toggle="modal" data-target="#exampleModal">
+                        Vocabulary
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Vocabulary</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="d-flex">
+                            <div class="px-5 py-1 border"></div>
+                            <div class="px-5 py-1 border"></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -115,6 +140,7 @@
         var from = '';
         var to = '';
         var pointArray = [];
+        var htmlBodyModal = '';
 
         $(document).on("click", "#enToVn", function () {
             status = '1';
@@ -125,7 +151,12 @@
                     pointArray.push([sheet1.values[i][2], sheet1.values[i][3], sheet1.values[i][4]]);
                     en.push(sheet1.values[i][0]);
                     vn.push(sheet1.values[i][1]);
+                    htmlBodyModal +='<div class="d-flex">'
+                        +'<div class="px-1 w-50 py-1 border questionContent">' + sheet1.values[i][0] +'</div>'
+                        +'<div class="px-1 w-50 py-1 border">'+ sheet1.values[i][1] +'</div>'
+                        +'</div>';
                 }
+                $('.modal-body').html(htmlBodyModal);
                 refresh()
             }, 2000)
         });
@@ -139,7 +170,12 @@
                     pointArray.push([sheet1.values[i][2], sheet1.values[i][3], sheet1.values[i][4]]);
                     en.push(sheet1.values[i][1]);
                     vn.push(sheet1.values[i][0]);
+                    htmlBodyModal +='<div class="d-flex">'
+                        +'<div class="px-1 w-50 py-1 border questionContent">' + sheet1.values[i][0] +'</div>'
+                        +'<div class="px-1 w-50 py-1 border">'+ sheet1.values[i][1] +'</div>'
+                        +'</div>';
                 }
+                $('.modal-body').html(htmlBodyModal);
                 refresh()
             }, 2000)
         });
@@ -153,7 +189,12 @@
                     pointArray.push([sheet1.values[i][2], sheet1.values[i][3], sheet1.values[i][4]]);
                     en.push(sheet1.values[i][0]);
                     vn.push(sheet1.values[i][1]);
+                    htmlBodyModal +='<div class="d-flex">'
+                        +'<div class="px-1 w-50 py-1 border questionContent">' + sheet1.values[i][0] +'</div>'
+                        +'<div class="px-1 w-50 py-1 border">'+ sheet1.values[i][1] +'</div>'
+                        +'</div>';
                 }
+                $('.modal-body').html(htmlBodyModal);
                 refresh()
             }, 2000)
         });
@@ -174,6 +215,7 @@
             vn = [];
             from = prompt("From:", "");
             to = prompt("To:", "");
+            htmlBodyModal = '';
         }
 
         $(document).on("click", ".button-aw", function () {
@@ -196,9 +238,9 @@
                 $('#desciption').html('<span class="text-danger">&nbsp;Sai&nbsp;</span>:&nbsp;<span class="text-danger">' + desciption + '</span>');
             }
 
-            $('#point').text(countTrue + '/' + countAll + ' | ' + from + '->' + to + ' | ' 
-            + 'I/T: ' + pointArray.filter(a => parseInt(a[0]) == 10 && parseInt(a[1]) == 10 && parseInt(a[2]) == 10).length 
-            + '/' + en.length);
+            $('#point').text(countTrue + '/' + countAll + ' | ' + from + '->' + to + ' | '
+                + 'I/T: ' + pointArray.filter(a => parseInt(a[0]) == 10 && parseInt(a[1]) == 10 && parseInt(a[2]) == 10).length
+                + '/' + en.length);
 
             setTimeout(function () {
                 $('.button-aw').attr("disabled", false);
@@ -214,9 +256,9 @@
         function refresh() {
             do {
                 indexTrue = Math.floor(Math.random() * en.length);
-            } while ($.inArray(indexTrue, enShowed) > -1 
-                    || (parseInt(pointArray[indexTrue][0]) == 10 
-                    && parseInt(pointArray[indexTrue][1]) == 10 
+            } while ($.inArray(indexTrue, enShowed) > -1
+                || (parseInt(pointArray[indexTrue][0]) == 10
+                    && parseInt(pointArray[indexTrue][1]) == 10
                     && parseInt(pointArray[indexTrue][2]) == 10));
             enShowed.push(indexTrue);
             if (status != '3') {
@@ -351,6 +393,15 @@
     <script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleClientLoad()"
         onreadystatechange="if (this.readyState === 'complete') this.onload()">
         </script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>
