@@ -324,18 +324,18 @@
                 "values": [pointArray[indexTrue]]
             };
 
-            var request = gapi.client.sheets.spreadsheets.values.update(params, valueRangeBody);
-            request.then(function (response) {
-                console.log(response.result);
-            }, function (reason) {
-                console.error('error: ' + reason.result.error.message);
-            });
+            // var request = gapi.client.sheets.spreadsheets.values.update(params, valueRangeBody);
+            // request.then(function (response) {
+            //     console.log(response.result);
+            // }, function (reason) {
+            //     console.error('error: ' + reason.result.error.message);
+            // });
         }
 
         function getData() {
 
             var jsonObj = {
-                values : JSON.parse('[["男性","NAM TÍNH"],["女性","NỮ TÍNH"],["高齢","CAO LINH"],["年上","NIÊN THƯỢNG"],["目上","MỤC THƯỢNG"],["","TIÊN BỐI"],["","HẬU BỐI"],["上司","THUONG TU"],["相手","TƯƠNG THU"],["知り合い","TRI HOP"],["友人","HỮU NHÂN"],["","TRỌNG"],["生年月日","NGUYỆT NHẬT"],["誕生","ĐÀN SINH"],["年","NIEN"],["出身","XUATTHAN"],["8","CỐ HƯƠNG"],["成長","TRƯỜNG"],["成人","THÀNH NHAN"],["合格","HOP CÁCH"],["進学","TIẾN HỌC"],["退学","THOAI HỌC"],["就职","TUU CHỨC"],["退職","THOÁI CHUC"],["失業","THAT NGHIEP"],["残業","TAN NGHIỆP"],["生活","SINH HOAT"],["通勤","THÔNG CẦN"],["学礎","HỌC LỊCH"],["給料","CAP UEU"]]')
+                values : JSON.parse('[["男性","NAM TÍNH"],["女性","NỮ TÍNH"],["高齢","CAO LINH"],["年上","NIÊN THƯỢNG"],["目上","MỤC THƯỢNG"],["上司","THUONG TU"],["相手","TƯƠNG THU"],["知り合い","TRI HOP"],["友人","HỮU NHÂN"],["","TRỌNG"],["生年月日","NGUYỆT NHẬT"],["誕生","ĐÀN SINH"],["年","NIEN"],["出身","XUATTHAN"],["8","CỐ HƯƠNG"],["成長","TRƯỜNG"],["成人","THÀNH NHAN"],["合格","HOP CÁCH"],["進学","TIẾN HỌC"],["退学","THOAI HỌC"],["就职","TUU CHỨC"],["退職","THOÁI CHUC"],["失業","THAT NGHIEP"],["残業","TAN NGHIỆP"],["生活","SINH HOAT"],["通勤","THÔNG CẦN"],["学礎","HỌC LỊCH"],["給料","CAP UEU"]]')
             }
 
             sheet1 = jsonObj;
