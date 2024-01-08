@@ -70,8 +70,8 @@
     <div class="justify-content-center">
         <div class="infor">
             <div class="d-flex justify-content-center">
-                <input type="button" value="EN -> VN" id="enToVn" class="btn btn-primary switch-language">
-                <input type="button" style="margin-left: 10px;" value="VN -> EN" id="vnToEn"
+                <input type="button" value="JP -> VN" id="jpToVn" class="btn btn-primary switch-language">
+                <input type="button" style="margin-left: 10px;" value="VN -> JP" id="vnToJp"
                     class="btn btn-primary switch-language">
                 <input type="button" style="margin-left: 10px;" value="LISTEN" id="Listen"
                     class="btn btn-primary switch-language">
@@ -142,7 +142,7 @@
         var pointArray = [];
         var htmlBodyModal = '';
 
-        $(document).on("click", "#enToVn", function () {
+        $(document).on("click", "#jpToVn", function () {
             status = '1';
             valueDefault();
             getData();
@@ -161,7 +161,7 @@
             }, 2000)
         });
 
-        $(document).on("click", "#vnToEn", function () {
+        $(document).on("click", "#vnToJp", function () {
             status = '2';
             valueDefault();
             getData();
@@ -200,17 +200,17 @@
         });
 
         $(document).on("click", ".questionContent", function () {
-            responsiveVoice.speak($(this).text());
+            responsiveVoice.speak($(this).text(), "Japanese Male");
         });
 
         $(document).on("click", "#repeat", function () {
-            responsiveVoice.speak($(this).attr('content'));
+            responsiveVoice.speak($(this).attr('content'), "Japanese Male");
         });
 
         function valueDefault() {
-            if(!gapi.auth2.getAuthInstance().isSignedIn.get()){
-                gapi.auth2.getAuthInstance().signIn();
-            }
+            // if(!gapi.auth2.getAuthInstance().isSignedIn.get()){
+            //     gapi.auth2.getAuthInstance().signIn();
+            // }
             indexTrue = 0;
             countTrue = 0;
             countAll = 0;
@@ -227,7 +227,7 @@
             var desciption = '';
 
             if (status == '2') {
-                responsiveVoice.speak(vn[indexTrue]);
+                responsiveVoice.speak(vn[indexTrue], "Japanese Male");
                 desciption = en[indexTrue] + '&nbsp; = &nbsp;' + '<span class="questionContent">' + vn[indexTrue] + '</span>';
             } else {
                 desciption = '<span class="questionContent">' + en[indexTrue] + '</span>' + '&nbsp; = &nbsp;' + vn[indexTrue];
@@ -270,7 +270,7 @@
                 $("#question").html('<input type="button" value="Repeat" id="repeat" class="btn btn-info" content="' + en[indexTrue] + '">');
             }
             if (status != '2') {
-                responsiveVoice.speak(en[indexTrue]);
+                responsiveVoice.speak(en[indexTrue], "Japanese Male");
             }
 
             var awCheck = [];
@@ -333,19 +333,26 @@
         }
 
         function getData() {
-            var params = {
-                spreadsheetId: getUrlParameter('id'),
-                range: 'C' + from + ':G' + to,
-                majorDimension: 'ROWS'
-            };
 
-            var request = gapi.client.sheets.spreadsheets.values.get(params);
-            request.then(function (response) {
-                // TODO: Change code below to process the `response` object:
-                sheet1 = response.result;
-            }, function (reason) {
-                console.error('error: ' + reason.result.error.message);
-            });
+            var jsonObj = {
+                values : JSON.parse('[["男性","NAM TÍNH"],["女性","NỮ TÍNH"],["高齢","CAO LINH"],["年上","NIÊN THƯỢNG"],["目上","MỤC THƯỢNG"],["","TIÊN BỐI"],["","HẬU BỐI"],["上司","THUONG TU"],["相手","TƯƠNG THU"],["知り合い","TRI HOP"],["友人","HỮU NHÂN"],["","TRỌNG"],["生年月日","NGUYỆT NHẬT"],["誕生","ĐÀN SINH"],["年","NIEN"],["出身","XUATTHAN"],["8","CỐ HƯƠNG"],["成長","TRƯỜNG"],["成人","THÀNH NHAN"],["合格","HOP CÁCH"],["進学","TIẾN HỌC"],["退学","THOAI HỌC"],["就职","TUU CHỨC"],["退職","THOÁI CHUC"],["失業","THAT NGHIEP"],["残業","TAN NGHIỆP"],["生活","SINH HOAT"],["通勤","THÔNG CẦN"],["学礎","HỌC LỊCH"],["給料","CAP UEU"]]')
+            }
+
+            sheet1 = jsonObj;
+
+            // var params = {
+            //     spreadsheetId: getUrlParameter('id'),
+            //     range: 'C' + from + ':G' + to,
+            //     majorDimension: 'ROWS'
+            // };
+
+            // var request = gapi.client.sheets.spreadsheets.values.get(params);
+            // request.then(function (response) {
+            //     // TODO: Change code below to process the `response` object:
+            //     sheet1 = response.result;
+            // }, function (reason) {
+            //     console.error('error: ' + reason.result.error.message);
+            // });
         }
 
         function initClient() {
@@ -389,9 +396,9 @@
             }
         };
     </script>
-    <script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleClientLoad()"
+    <!-- <script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleClientLoad()"
         onreadystatechange="if (this.readyState === 'complete') this.onload()">
-        </script>
+        </script> -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
