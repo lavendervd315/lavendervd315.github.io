@@ -151,10 +151,10 @@
                     pointArray.push([sheet1.values[i][2], sheet1.values[i][3], sheet1.values[i][4]]);
                     en.push(sheet1.values[i][0]);
                     vn.push(sheet1.values[i][1]);
-                    htmlBodyModal +='<div class="d-flex">'
-                        +'<div class="px-1 w-50 py-1 border questionContent">' + sheet1.values[i][0] +'</div>'
-                        +'<div class="px-1 w-50 py-1 border">'+ sheet1.values[i][1] +'</div>'
-                        +'</div>';
+                    htmlBodyModal += '<div class="d-flex">'
+                        + '<div class="px-1 w-50 py-1 border questionContent">' + sheet1.values[i][0] + '</div>'
+                        + '<div class="px-1 w-50 py-1 border">' + sheet1.values[i][1] + '</div>'
+                        + '</div>';
                 }
                 $('.modal-body').html(htmlBodyModal);
                 refresh()
@@ -170,10 +170,10 @@
                     pointArray.push([sheet1.values[i][2], sheet1.values[i][3], sheet1.values[i][4]]);
                     en.push(sheet1.values[i][1]);
                     vn.push(sheet1.values[i][0]);
-                    htmlBodyModal +='<div class="d-flex">'
-                        +'<div class="px-1 w-50 py-1 border questionContent">' + sheet1.values[i][0] +'</div>'
-                        +'<div class="px-1 w-50 py-1 border">'+ sheet1.values[i][1] +'</div>'
-                        +'</div>';
+                    htmlBodyModal += '<div class="d-flex">'
+                        + '<div class="px-1 w-50 py-1 border questionContent">' + sheet1.values[i][0] + '</div>'
+                        + '<div class="px-1 w-50 py-1 border">' + sheet1.values[i][1] + '</div>'
+                        + '</div>';
                 }
                 $('.modal-body').html(htmlBodyModal);
                 refresh()
@@ -189,10 +189,10 @@
                     pointArray.push([sheet1.values[i][2], sheet1.values[i][3], sheet1.values[i][4]]);
                     en.push(sheet1.values[i][0]);
                     vn.push(sheet1.values[i][1]);
-                    htmlBodyModal +='<div class="d-flex">'
-                        +'<div class="px-1 w-50 py-1 border questionContent">' + sheet1.values[i][0] +'</div>'
-                        +'<div class="px-1 w-50 py-1 border">'+ sheet1.values[i][1] +'</div>'
-                        +'</div>';
+                    htmlBodyModal += '<div class="d-flex">'
+                        + '<div class="px-1 w-50 py-1 border questionContent">' + sheet1.values[i][0] + '</div>'
+                        + '<div class="px-1 w-50 py-1 border">' + sheet1.values[i][1] + '</div>'
+                        + '</div>';
                 }
                 $('.modal-body').html(htmlBodyModal);
                 refresh()
@@ -334,8 +334,53 @@
 
         function getData() {
 
+            var words = [
+                { "Japanese": "だんせい", "Vietnamese": "Đàn ông." },
+                { "Japanese": "しょせい", "Vietnamese": "Phụ nữ" },
+                { "Japanese": "こうれい", "Vietnamese": "Cao tuổi" },
+                { "Japanese": "としうえ", "Vietnamese": "Hơn tuổi" },
+                { "Japanese": "めうえ", "Vietnamese": "Bề trên" },
+                { "Japanese": "せんばぱい", "Vietnamese": "Tiền bối" },
+                { "Japanese": "こうはい", "Vietnamese": "Hậu" },
+                { "Japanese": "じょうし", "Vietnamese": "Cấp trên." },
+                { "Japanese": "あいて", "Vietnamese": "Người đối diện" },
+                { "Japanese": "しりあい", "Vietnamese": "Người quen." },
+                { "Japanese": "ゆうじん", "Vietnamese": "Bạn bè, bạn thân." },
+                { "Japanese": "なか", "Vietnamese": "Mối quan hệ" },
+                { "Japanese": "せいねんがっぴ", "Vietnamese": "Ngày tháng năm sinh" },
+                { "Japanese": "たんじょう", "Vietnamese": "Sự ra đời" },
+                { "Japanese": "とし", "Vietnamese": "Nam" },
+                { "Japanese": "しゅっしん", "Vietnamese": "Xuất thân, gốc gác" },
+                { "Japanese": "こきょう", "Vietnamese": "Quê hương" },
+                { "Japanese": "せいちょう", "Vietnamese": "Trưởng thành, phát triển" },
+                { "Japanese": "せいじん", "Vietnamese": "Người trưởng thành" },
+                { "Japanese": "ごうかく", "Vietnamese": "Thi đỗ, trúng tuyển." },
+                { "Japanese": "しんがく", "Vietnamese": "Học lên" },
+                { "Japanese": "たいがく", "Vietnamese": "Sự bỏ học" },
+                { "Japanese": "しゅうしょく", "Vietnamese": "Sự tìm việc" },
+                { "Japanese": "たいしょく", "Vietnamese": "Nghi viec" },
+                { "Japanese": "しつぎょう", "Vietnamese": "Thất nghiệp." },
+                { "Japanese": "ざんぎょ", "Vietnamese": "Làm thêm giờ" },
+                { "Japanese": "せいかつ", "Vietnamese": "Cuộc sống, sinh hoạt" },
+                { "Japanese": "つうきん", "Vietnamese": "Đi làm (đi và về)" },
+                { "Japanese": "がくれき", "Vietnamese": "Bằng cấp" },
+                { "Japanese": "きゅうりょう", "Vietnamese": "Tiền lương," },
+                { "Japanese": "めんせつ", "Vietnamese": "Phỏng vấn" },
+                { "Japanese": "きゆゅうけい", "Vietnamese": "Nghỉ giải lao." },
+                { "Japanese": "かんこう", "Vietnamese": "Tham quan" },
+                { "Japanese": "きこく", "Vietnamese": "Ve nuoc" }
+            ]
+
+
             var jsonObj = {
-                values : JSON.parse('[["男性","NAM TÍNH"],["女性","NỮ TÍNH"],["高齢","CAO LINH"],["年上","NIÊN THƯỢNG"],["目上","MỤC THƯỢNG"],["上司","THUONG TU"],["相手","TƯƠNG THU"],["知り合い","TRI HOP"],["友人","HỮU NHÂN"],["","TRỌNG"],["生年月日","NGUYỆT NHẬT"],["誕生","ĐÀN SINH"],["年","NIEN"],["出身","XUATTHAN"],["8","CỐ HƯƠNG"],["成長","TRƯỜNG"],["成人","THÀNH NHAN"],["合格","HOP CÁCH"],["進学","TIẾN HỌC"],["退学","THOAI HỌC"],["就职","TUU CHỨC"],["退職","THOÁI CHUC"],["失業","THAT NGHIEP"],["残業","TAN NGHIỆP"],["生活","SINH HOAT"],["通勤","THÔNG CẦN"],["学礎","HỌC LỊCH"],["給料","CAP UEU"]]')
+                values: JSON.parse('[["男性","NAM TÍNH"],["女性","NỮ TÍNH"],["高齢","CAO LINH"],["年上","NIÊN THƯỢNG"],["目上","MỤC THƯỢNG"],["上司","THUONG TU"],["相手","TƯƠNG THU"],["知り合い","TRI HOP"],["友人","HỮU NHÂN"],["","TRỌNG"],["生年月日","NGUYỆT NHẬT"],["誕生","ĐÀN SINH"],["年","NIEN"],["出身","XUATTHAN"],["8","CỐ HƯƠNG"],["成長","TRƯỜNG"],["成人","THÀNH NHAN"],["合格","HOP CÁCH"],["進学","TIẾN HỌC"],["退学","THOAI HỌC"],["就职","TUU CHỨC"],["退職","THOÁI CHUC"],["失業","THAT NGHIEP"],["残業","TAN NGHIỆP"],["生活","SINH HOAT"],["通勤","THÔNG CẦN"],["学礎","HỌC LỊCH"],["給料","CAP UEU"]]')
+            }
+
+            for(var i = 0; i < words.length; i++) {
+                var value = [];
+                value.push(words[i].Japanese)
+                value.push(words[i].Vietnamese)
+                jsonObj.values.push(value);
             }
 
             sheet1 = jsonObj;
