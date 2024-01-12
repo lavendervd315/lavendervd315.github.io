@@ -205,11 +205,11 @@
         });
 
         $(document).on("click", ".questionContent", function () {
-            responsiveVoice.speak($(this).text(), "Japanese Male");
+            responsiveVoice.speak($(this).text(), "Japanese Female");
         });
 
         $(document).on("click", "#repeat", function () {
-            responsiveVoice.speak($(this).attr('content'), "Japanese Male");
+            responsiveVoice.speak($(this).attr('content'), "Japanese Female");
         });
 
         function valueDefault() {
@@ -232,7 +232,7 @@
             var desciption = '';
 
             if (status == '2') {
-                responsiveVoice.speak(vn[indexTrue], "Japanese Male");
+                responsiveVoice.speak(vn[indexTrue], "Japanese Female");
                 desciption = en[indexTrue] + '&nbsp; = &nbsp;' + '<span class="questionContent">' + vn[indexTrue] + '</span>';
             } else {
                 desciption = '<span class="questionContent">' + en[indexTrue] + '</span>' + '&nbsp; = &nbsp;' + vn[indexTrue];
@@ -273,7 +273,7 @@
                 $("#question").html('<input type="button" value="Repeat" id="repeat" class="btn btn-info" content="' + en[indexTrue] + '">');
             }
             if (status != '2') {
-                responsiveVoice.speak(en[indexTrue], "Japanese Male");
+                responsiveVoice.speak(en[indexTrue], "Japanese Female");
             }
 
             var awCheck = [];
