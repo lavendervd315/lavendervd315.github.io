@@ -208,9 +208,9 @@
         });
 
         function valueDefault() {
-            // if(!gapi.auth2.getAuthInstance().isSignedIn.get()){
-            //     gapi.auth2.getAuthInstance().signIn();
-            // }
+            if(!gapi.auth2.getAuthInstance().isSignedIn.get()){
+                gapi.auth2.getAuthInstance().signIn();
+            }
             indexTrue = 0;
             countTrue = 0;
             countAll = 0;
