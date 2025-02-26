@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Lavender</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- dungnv -->
+    <meta name="google-signin-client_id"
+        content="788558208749-3esc9rtmijr48kuhkgsfnudret4l25hb.apps.googleusercontent.com">
+    <!-- anhvn -->
+    <!-- <meta name="google-signin-client_id"
+        content="438091647605-st6dc0q4clama7khla31ve9ic4i1j497.apps.googleusercontent.com"> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.responsivevoice.org/responsivevoice.js?key=8hwlXPae"></script>
+    <style>
+        .button-aw {
+            width: 40%;
+            height: 50px;
+        }
+
+        .text-size {
+            font-size: xxx-large;
+        }
+
+        .infor {
+            height: 40vh;
+            padding-top: 100px;
+        }
+
+        #repeat {
+            width: 200px
+        }
+
+        .switch-language {
+            width: 20%;
+        }
+
+        .questionContent{
+            cursor: help;
+        }
+
+        @media screen and (min-width: 350px) and (max-width: 1000px) {
+            .button-aw {
+                width: 100%;
+                height: 50px;
+                /* font-size: 200%; */
+            }
+
+            .text-size {
+                font-size: 150%;
+            }
+
+            .infor {
+                height: 40vh;
+                padding-top: 25px;
+            }
+
+            /* #repeat {
+                width: 300px;
+                height: 70px;
+                font-size: 50%;
+                color: WHITE;
+            } */
+
+            .switch-language {
+                width: 27%;
+                height: 35px;
+                font-size: 73%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="justify-content-center">
+        <div class="infor">
+            <div class="d-flex justify-content-center">
+                <input type="button" value="JP -> VN" id="jpToVn" class="btn btn-primary switch-language">
+                <input type="button" style="margin-left: 10px;" value="VN -> JP" id="vnToJp"
+                    class="btn btn-primary switch-language">
+                <input type="button" style="margin-left: 10px;" value="LISTEN" id="Listen"
+                    class="btn btn-primary switch-language">
+            </div>
+            <div class="text-size d-flex justify-content-center mt-3 text-warning" id="point"></div>
+            <div class="text-size d-flex justify-content-center" id="desciption"></div>
+        </div>
+        <div id="content">
+            <div class="w-100 d-flex justify-content-center mb-3">
+                <h1 class="text-size" id="question">Question</h1>
+            </div>
+            <div class="w-100 d-flex flex-column px-4">
+                <div class="w-100 d-flex justify-content-center mb-2">
+                    <input type="button" class="btn btn-outline-primary button-aw" id="answer0" value="A" index="" />
+                </div>
+                <div class="w-100 d-flex justify-content-center mb-2">
+                    <input type="button" class="btn btn-outline-primary button-aw" id="answer1" value="B" index="" />
+                </div>
+                <div class="w-100 d-flex justify-content-center mb-2">
+                    <input type="button" class="btn btn-outline-primary button-aw" id="answer2" value="C" index="" />
+                </div>
+                <div class="w-100 d-flex justify-content-center mb-2">
+                    <input type="button" class="btn btn-outline-primary button-aw" id="answer3" value="D" index="" />
+                </div>
+                <div class="w-100 d-flex justify-content-center mb-3">
+                    <input type="button" class="btn btn-outline-primary button-aw" id="answer4" value="E" index="" />
+                </div>
+                <div class="w-100 d-flex justify-content-center">
+                    <button type="button" class="btn btn-primary " data-toggle="modal" data-target="#exampleModal">
+                        Vocabulary
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Vocabulary</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="d-flex">
+                            <div class="px-5 py-1 border"></div>
+                            <div class="px-5 py-1 border"></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var indexTrue = 0;
+        var countTrue = 0;
+        var countAll = 0;
+        var sheet1 = null;
+        var en = [];
+        var vn = [];
+        var enShowed = [];
+        var status = '1';
+        var from = '';
+        var to = '';
+        var pointArray = [];
+        var htmlBodyModal = '';
+
+        $(document).on("click", "#jpToVn", function () {
+            status = '1';
+            valueDefault();
+            getData();
+            setTimeout(function () {
+                for (var i = 0; i < sheet1.values.length; i++) {
+                    pointArray.push([sheet1.values[i][2], sheet1.values[i][3], sheet1.values[i][4]]);
+                    en.push(sheet1.values[i][0]);
+                    vn.push(sheet1.values[i][1]);
+                    htmlBodyModal += '<div class="d-flex">'
+                        + '<div class="px-1 w-50 py-1 border questionContent">' + sheet1.values[i][0] + '</div>'
+                        + '<div class="px-1 w-50 py-1 border">' + sheet1.values[i][1] + '</div>'
+                        + '</div>';
+                }
+                $('.modal-body').html(htmlBodyModal);
+                refresh()
+            }, 2000)
+        });
+
+        $(document).on("click", "#vnToJp", function () {
+            status = '2';
+            valueDefault();
+            getData();
+            setTimeout(function () {
+                for (var i = 0; i < sheet1.values.length; i++) {
+                    pointArray.push([sheet1.values[i][2], sheet1.values[i][3], sheet1.values[i][4]]);
+                    en.push(sheet1.values[i][1]);
+                    vn.push(sheet1.values[i][0]);
+                    htmlBodyModal += '<div class="d-flex">'
+                        + '<div class="px-1 w-50 py-1 border questionContent">' + sheet1.values[i][0] + '</div>'
+                        + '<div class="px-1 w-50 py-1 border">' + sheet1.values[i][1] + '</div>'
+                        + '</div>';
+                }
+                $('.modal-body').html(htmlBodyModal);
+                refresh()
+            }, 2000)
+        });
+
+        $(document).on("click", "#Listen", function () {
+            status = '3';
+            valueDefault();
+            getData();
+            setTimeout(function () {
+                for (var i = 0; i < sheet1.values.length; i++) {
+                    pointArray.push([sheet1.values[i][2], sheet1.values[i][3], sheet1.values[i][4]]);
+                    en.push(sheet1.values[i][0]);
+                    vn.push(sheet1.values[i][1]);
+                    htmlBodyModal += '<div class="d-flex">'
+                        + '<div class="px-1 w-50 py-1 border questionContent">' + sheet1.values[i][0] + '</div>'
+                        + '<div class="px-1 w-50 py-1 border">' + sheet1.values[i][1] + '</div>'
+                        + '</div>';
+                }
+                $('.modal-body').html(htmlBodyModal);
+                refresh()
+            }, 2000)
+        });
+
+        $(document).on("click", ".questionContent", function () {
+            responsiveVoice.speak($(this).text(), "Japanese Female");
+        });
+
+        $(document).on("click", "#repeat", function () {
+            responsiveVoice.speak($(this).attr('content'), "Japanese Female");
+        });
+
+        function valueDefault() {
+            if(!gapi.auth2.getAuthInstance().isSignedIn.get()){
+                gapi.auth2.getAuthInstance().signIn();
+            }
+            indexTrue = 0;
+            countTrue = 0;
+            countAll = 0;
+            en = [];
+            vn = [];
+            from = prompt("From:", "");
+            to = prompt("To:", "");
+            htmlBodyModal = '';
+        }
+
+        $(document).on("click", ".button-aw", function () {
+            countAll++;
+            $('.button-aw').attr("disabled", true);
+            var desciption = '';
+
+            if (status == '2') {
+                responsiveVoice.speak(vn[indexTrue], "Japanese Female");
+                desciption = en[indexTrue] + '&nbsp; = &nbsp;' + '<span class="questionContent">' + vn[indexTrue] + '</span>';
+            } else {
+                desciption = '<span class="questionContent">' + en[indexTrue] + '</span>' + '&nbsp; = &nbsp;' + vn[indexTrue];
+            }
+
+            if (indexTrue == $(this).attr('index')) {
+                countTrue++;
+                $('#desciption').html('<span class="text-success">&nbsp;Đúng&nbsp;</span>:&nbsp;<span class="text-success">' + desciption + '</span>');
+                update();
+            } else {
+                $('#desciption').html('<span class="text-danger">&nbsp;Sai&nbsp;</span>:&nbsp;<span class="text-danger">' + desciption + '</span>');
+            }
+
+            $('#point').text(countTrue + '/' + countAll + ' | ' + from + '->' + to);
+
+            setTimeout(function () {
+                $('.button-aw').attr("disabled", false);
+                if (enShowed.length == en.length) {
+                    alert('Game over');
+                    location.reload();
+                } else {
+                    refresh();
+                }
+            }, 500)
+        });
+
+        function refresh() {
+            do {
+                indexTrue = Math.floor(Math.random() * en.length);
+            } while ($.inArray(indexTrue, enShowed) > -1
+                || (parseInt(pointArray[indexTrue][0]) >= 5
+                    && parseInt(pointArray[indexTrue][1]) >= 5
+                    && parseInt(pointArray[indexTrue][2]) >= 5));
+            enShowed.push(indexTrue);
+            if (status != '3') {
+                $("#question").html('<span class="questionContent">' + en[indexTrue] + '</span>');
+            } else {
+                $("#question").html('<input type="button" value="Repeat" id="repeat" class="btn btn-info" content="' + en[indexTrue] + '">');
+            }
+            if (status != '2') {
+                responsiveVoice.speak(en[indexTrue], "Japanese Female");
+            }
+
+            var awCheck = [];
+            var n = 5;
+            var j = 0;
+            for (var i = 0; i < n; i++) {
+                var random = Math.floor(Math.random() * vn.length);
+                if (awCheck.indexOf(random) == -1 && indexTrue != random) {
+                    awCheck.push(random);
+                    $("#answer" + j).val(vn[random].toUpperCase());
+                    $("#answer" + j).attr("index", random);
+                    j++;
+                } else {
+                    n++;
+                }
+            }
+
+            var randomAnswer = Math.floor(Math.random() * 5);
+            $("#answer" + randomAnswer).val(vn[indexTrue].toUpperCase());
+            $("#answer" + randomAnswer).attr("index", indexTrue);
+        }
+
+        function update() {
+            var params = {
+                spreadsheetId: getUrlParameter('id'),
+                range: 'E' + (indexTrue + parseInt(from)).toString() + ':G' + (indexTrue + parseInt(from)).toString(),
+                valueInputOption: 'RAW',
+            };
+
+            if (status == '1') {
+                pointArray[indexTrue] = [
+                    (pointArray[indexTrue][0] != undefined ? parseInt(pointArray[indexTrue][0]) + 1 : 1),
+                    (pointArray[indexTrue][1] != undefined ? pointArray[indexTrue][1] : 0),
+                    (pointArray[indexTrue][2] != undefined ? pointArray[indexTrue][2] : 0)
+                ]
+            } else if (status == '2') {
+                pointArray[indexTrue] = [
+                    (pointArray[indexTrue][0] != undefined ? pointArray[indexTrue][0] : 0),
+                    (pointArray[indexTrue][1] != undefined ? parseInt(pointArray[indexTrue][1]) + 1 : 1),
+                    (pointArray[indexTrue][2] != undefined ? pointArray[indexTrue][2] : 0)
+                ]
+            } else {
+                pointArray[indexTrue] = [
+                    (pointArray[indexTrue][0] != undefined ? pointArray[indexTrue][0] : 0),
+                    (pointArray[indexTrue][1] != undefined ? pointArray[indexTrue][1] : 0),
+                    (pointArray[indexTrue][2] != undefined ? parseInt(pointArray[indexTrue][2]) + 1 : 1),
+                ]
+            }
+
+            var valueRangeBody = {
+                "values": [pointArray[indexTrue]]
+            };
+
+            var request = gapi.client.sheets.spreadsheets.values.update(params, valueRangeBody);
+            request.then(function (response) {
+                console.log(response.result);
+            }, function (reason) {
+                console.error('error: ' + reason.result.error.message);
+            });
+        }
+
+        function getData() {
+
+            // var words = [
+            //     { "Japanese": "だんせい", "Vietnamese": "Đàn ông." },
+            //     { "Japanese": "しょせい", "Vietnamese": "Phụ nữ" },
+            //     { "Japanese": "こうれい", "Vietnamese": "Cao tuổi" },
+            //     { "Japanese": "としうえ", "Vietnamese": "Hơn tuổi" },
+            //     { "Japanese": "めうえ", "Vietnamese": "Bề trên" },
+            //     { "Japanese": "せんばぱい", "Vietnamese": "Tiền bối" },
+            //     { "Japanese": "こうはい", "Vietnamese": "Hậu" },
+            //     { "Japanese": "じょうし", "Vietnamese": "Cấp trên." },
+            //     { "Japanese": "あいて", "Vietnamese": "Người đối diện" },
+            //     { "Japanese": "しりあい", "Vietnamese": "Người quen." },
+            //     { "Japanese": "ゆうじん", "Vietnamese": "Bạn bè, bạn thân." },
+            //     { "Japanese": "なか", "Vietnamese": "Mối quan hệ" },
+            //     { "Japanese": "せいねんがっぴ", "Vietnamese": "Ngày tháng năm sinh" },
+            //     { "Japanese": "たんじょう", "Vietnamese": "Sự ra đời" },
+            //     { "Japanese": "とし", "Vietnamese": "Nam" },
+            //     { "Japanese": "しゅっしん", "Vietnamese": "Xuất thân, gốc gác" },
+            //     { "Japanese": "こきょう", "Vietnamese": "Quê hương" },
+            //     { "Japanese": "せいちょう", "Vietnamese": "Trưởng thành, phát triển" },
+            //     { "Japanese": "せいじん", "Vietnamese": "Người trưởng thành" },
+            //     { "Japanese": "ごうかく", "Vietnamese": "Thi đỗ, trúng tuyển." },
+            //     { "Japanese": "しんがく", "Vietnamese": "Học lên" },
+            //     { "Japanese": "たいがく", "Vietnamese": "Sự bỏ học" },
+            //     { "Japanese": "しゅうしょく", "Vietnamese": "Sự tìm việc" },
+            //     { "Japanese": "たいしょく", "Vietnamese": "Nghi viec" },
+            //     { "Japanese": "しつぎょう", "Vietnamese": "Thất nghiệp." },
+            //     { "Japanese": "ざんぎょ", "Vietnamese": "Làm thêm giờ" },
+            //     { "Japanese": "せいかつ", "Vietnamese": "Cuộc sống, sinh hoạt" },
+            //     { "Japanese": "つうきん", "Vietnamese": "Đi làm (đi và về)" },
+            //     { "Japanese": "がくれき", "Vietnamese": "Bằng cấp" },
+            //     { "Japanese": "きゅうりょう", "Vietnamese": "Tiền lương," },
+            //     { "Japanese": "めんせつ", "Vietnamese": "Phỏng vấn" },
+            //     { "Japanese": "きゆゅうけい", "Vietnamese": "Nghỉ giải lao." },
+            //     { "Japanese": "かんこう", "Vietnamese": "Tham quan" },
+            //     { "Japanese": "きこく", "Vietnamese": "Ve nuoc" }
+            // ]
+
+
+            // var jsonObj = {
+            //     values: JSON.parse('[["男性","NAM TÍNH"],["女性","NỮ TÍNH"],["高齢","CAO LINH"],["年上","NIÊN THƯỢNG"],["目上","MỤC THƯỢNG"],["上司","THUONG TU"],["相手","TƯƠNG THU"],["知り合い","TRI HOP"],["友人","HỮU NHÂN"],["","TRỌNG"],["生年月日","NGUYỆT NHẬT"],["誕生","ĐÀN SINH"],["年","NIEN"],["出身","XUATTHAN"],["8","CỐ HƯƠNG"],["成長","TRƯỜNG"],["成人","THÀNH NHAN"],["合格","HOP CÁCH"],["進学","TIẾN HỌC"],["退学","THOAI HỌC"],["就职","TUU CHỨC"],["退職","THOÁI CHUC"],["失業","THAT NGHIEP"],["残業","TAN NGHIỆP"],["生活","SINH HOAT"],["通勤","THÔNG CẦN"],["学礎","HỌC LỊCH"],["給料","CAP UEU"]]')
+            // }
+
+            // for(var i = 0; i < words.length; i++) {
+            //     var value = [];
+            //     value.push(words[i].Japanese)
+            //     value.push(words[i].Vietnamese)
+            //     jsonObj.values.push(value);
+            // }
+
+            // sheet1 = jsonObj;
+
+            var params = {
+                spreadsheetId: getUrlParameter('id'),
+                range: 'C' + from + ':G' + to,
+                majorDimension: 'ROWS'
+            };
+
+            var request = gapi.client.sheets.spreadsheets.values.get(params);
+            request.then(function (response) {
+                // TODO: Change code below to process the `response` object:
+                sheet1 = response.result;
+            }, function (reason) {
+                console.error('error: ' + reason.result.error.message);
+            });
+        }
+
+        function initClient() {
+            // dungnv
+            var API_KEY = 'AIzaSyAHZ9BAe0pFVHIPvJHJjowAMGe9cGWgUQs';
+            var CLIENT_ID = '788558208749-3esc9rtmijr48kuhkgsfnudret4l25hb.apps.googleusercontent.com';
+
+            // anhvn
+            // var API_KEY = 'AIzaSyANJrYqg-yxnjaXhunnHTMbYe2Ke-e0ffE';
+            // var CLIENT_ID = '438091647605-st6dc0q4clama7khla31ve9ic4i1j497.apps.googleusercontent.com';
+
+            var SCOPE = 'https://www.googleapis.com/auth/spreadsheets';
+
+            gapi.client.init({
+                'apiKey': API_KEY,
+                'clientId': CLIENT_ID,
+                'scope': SCOPE,
+                'discoveryDocs': ['https://sheets.googleapis.com/$discovery/rest?version=v4'],
+            }).then(function () {
+                gapi.auth2.getAuthInstance().isSignedIn.listen(updateSignInStatus);
+                updateSignInStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+            });
+        }
+
+        function handleClientLoad() {
+            gapi.load('client:auth2', initClient);
+        }
+
+        function getUrlParameter(sParam) {
+            var sPageURL = window.location.search.substring(1),
+                sURLVariables = sPageURL.split('&'),
+                sParameterName,
+                i;
+
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
+
+                if (sParameterName[0] === sParam) {
+                    return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+                }
+            }
+        };
+    </script>
+    <script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleClientLoad()"
+        onreadystatechange="if (this.readyState === 'complete') this.onload()">
+        </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
