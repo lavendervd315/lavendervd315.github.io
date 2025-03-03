@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Booking Confirmation</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
@@ -73,7 +73,7 @@
         }
 
         .footer {
-            margin-top: 250px;
+            margin-top: 300px;
             text-align: center;
             font-size: 12px;
             color: #666;
@@ -91,9 +91,8 @@
     <div id="pdf-content">
         <div class="header">
             <div>
-                <span class="booking-title" data-key="bookingConfirmationTitle">Booking Confirmation</span><br>
-                <span data-key="bookingConfirmationText">Please present either an electronic or printed copy of your
-                    booking confirmation upon check-in.</span>
+                <span class="booking-title" data-key="bookingConfirmationTitle"></span><br>
+                <span data-key="bookingConfirmationText"></span>
             </div>
         </div>
 
@@ -134,7 +133,7 @@
         </div>
 
         <div class="special-offers">
-            <span class="hotel-name"><strong class="hotelName"></strong></span><br>
+            <span class="hotel-name"><strong class="hotelName"></strong></span><br><br>
             <span data-key="tel"></span>&nbsp;<strong data-value="hotelPhone"></strong><br>
             <br>
             <span data-key="address"></span>&nbsp;<strong data-value="hotelAddress"></strong>
