@@ -33,7 +33,7 @@
         .header .booking-title {
             color: #D32F2F;
             padding-bottom: 5px;
-            font-size: 1.5rem;
+            font-size: 20pt;
             font-weight: bold;
         }
 
@@ -67,7 +67,7 @@
             margin-top: 0px;
             margin-bottom: 15px;
             color: #D32F2F;
-            font-size: 1.3rem;
+            font-size: 18pt;
             letter-spacing: 1px;
             font-weight: bold;
         }
@@ -285,8 +285,8 @@
                 margin: 10,
                 filename: 'Booking_Confirmation.pdf',
                 image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2, useCORS: true }, // Hỗ trợ ảnh bên ngoài
-                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                html2canvas: { scale: 1, useCORS: true },
+                jsPDF: { unit: 'pt', format: 'a4', orientation: 'portrait' }
             };
 
             html2pdf().from(element).set(opt).outputPdf('blob').then(function (pdfBlob) {
