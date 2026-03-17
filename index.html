@@ -479,25 +479,34 @@
             return urlParams.get(name) || null;
         }
 
+        // Decode an toàn, không crash khi có ký tự % không hợp lệ
+        function safeDecode(str) {
+            try {
+                return decodeURIComponent(str);
+            } catch (e) {
+                return str;
+            }
+        }
+
         // Hàm thay đổi ngôn ngữ và nhận param từ URL
         function initData() {
 
             // Lấy dữ liệu mới từ URL parameters
             const currentLanguage = getUrlParameter('i18n') || 'vi';
-            const customerName = decodeURIComponent(getUrlParameter('customerName') || 'Nguyễn Văn A');
+            const customerName = safeDecode(getUrlParameter('customerName') || 'Nguyễn Văn A');
             const customerPhone = getUrlParameter('customerPhone') || '0999999999';
             const bookingCode = getUrlParameter('bookingCode') || 'XXXX';
             const bookingDate = getUrlParameter('bookingDate') || '21-02-2025';
             const bookingDateStart = getUrlParameter('bookingDateStart') || '23-02-2025';
             const bookingDateEnd = getUrlParameter('bookingDateEnd') || '25-02-2025';
-            const roomBooking = decodeURIComponent(getUrlParameter('roomBooking') || 'Phòng VIP');
+            const roomBooking = safeDecode(getUrlParameter('roomBooking') || 'Phòng VIP');
             const totalAmount = getUrlParameter('totalAmount') || '0';
             const depositAmount = getUrlParameter('depositAmount') || '0';
             const remainingAmount = getUrlParameter('remainingAmount') || '0';
-            const note = decodeURIComponent(getUrlParameter('note') || 'Không có ghi chú nào.');
+            const note = safeDecode(getUrlParameter('note') || 'Không có ghi chú nào.');
 
-            const hotelName = decodeURIComponent(getUrlParameter('hotelName') || 'SA Hotel');
-            const hotelAddress = decodeURIComponent(getUrlParameter('hotelAddress') || 'Tiền Hải - Thái Bình');
+            const hotelName = safeDecode(getUrlParameter('hotelName') || 'SA Hotel');
+            const hotelAddress = safeDecode(getUrlParameter('hotelAddress') || 'Tiền Hải - Thái Bình');
             const hotelPhone = getUrlParameter('hotelPhone') || '0888888888';
 
             // Cập nhật hotelName
