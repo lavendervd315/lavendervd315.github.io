@@ -227,27 +227,27 @@
         function initData() {
 
             // Lấy dữ liệu mới từ URL parameters mỗi khi chuyển đổi ngôn ngữ
-            const currentLanguage = getUrlParameter('i18n');
-            const customerName = getUrlParameter('customerName') || 'Nguyễn Văn A';
+            const currentLanguage = getUrlParameter('i18n') || 'vi';
+            const customerName = decodeURIComponent(getUrlParameter('customerName') || 'Nguyễn Văn A');
             const customerPhone = getUrlParameter('customerPhone') || '0999999999';
             const bookingCode = getUrlParameter('bookingCode') || 'XXXX';
             const bookingDate = getUrlParameter('bookingDate') || '21-02-2025';
             const bookingDateStart = getUrlParameter('bookingDateStart') || '23-02-2025';
             const bookingDateEnd = getUrlParameter('bookingDateEnd') || '25-02-2025';
             const roomQuantity = getUrlParameter('roomQuantity') || '1';
-            const roomType = getUrlParameter('roomType') || 'Phòng VIP';
+            const roomType = decodeURIComponent(getUrlParameter('roomType') || 'Phòng VIP');
             const totalAmount = getUrlParameter('totalAmount') || '0';
             const depositAmount = getUrlParameter('depositAmount') || '0';
             const remainingAmount = getUrlParameter('remainingAmount') || '0';
-            const note = getUrlParameter('note') || '';
+            const note = decodeURIComponent(getUrlParameter('note') || '');
 
-            const hotelName = getUrlParameter('hotelName') || 'SA Hotel';
-            const hotelAddress = getUrlParameter('hotelAddress') || 'Tiền Hải - Thái Bình';
+            const hotelName = decodeURIComponent(getUrlParameter('hotelName') || 'SA Hotel');
+            const hotelAddress = decodeURIComponent(getUrlParameter('hotelAddress') || 'Tiền Hải - Thái Bình');
             const hotelPhone = getUrlParameter('hotelPhone') || '0888888888';
             // Cập nhật các phần tử trong HTML sử dụng class cho hotelName
             const hotelNameElements = document.getElementsByClassName('hotelName');
             for (let element of hotelNameElements) {
-                element.textContent = decodeURIComponent(hotelName);
+                element.textContent = hotelName;
             }
 
             if (languages) {
