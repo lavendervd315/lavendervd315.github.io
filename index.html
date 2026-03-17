@@ -363,10 +363,6 @@
                     <div class="info-value" data-value="roomType">Phòng đơn</div>
                 </div>
                 <div class="info-row">
-                    <div class="info-label" data-key="roomQuantity"></div>
-                    <div class="info-value" data-value="roomQuantity">1</div>
-                </div>
-                <div class="info-row">
                     <div class="info-label" data-key="checkInDate"></div>
                     <div class="info-value" data-value="bookingDateStart">2020/2/2</div>
                 </div>
@@ -535,7 +531,8 @@
                 // Cập nhật giá trị dữ liệu (data-value) từ URL parameters
                 const dataMap = {
                     customerName, customerPhone, bookingCode, bookingDate,
-                    roomQuantity, roomType, bookingDateStart, bookingDateEnd,
+                    roomType: roomType + ' (' + roomQuantity + ')',
+                    bookingDateStart, bookingDateEnd,
                     totalAmount, depositAmount, remainingAmount, note,
                     hotelName, hotelPhone, hotelAddress
                 };
