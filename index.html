@@ -7,98 +7,298 @@
     <title>Booking Confirmation</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-
-        .header {
-            background-color: #f5f5f5;
-            padding: 10px 15px;
-            border: 1px solid #ccc;
-            display: flex;
-            align-items: center;
-        }
-
-        .logo {
-            max-width: 40px;
-            margin-right: 10px;
-        }
-
-        .header h2,
-        .header div {
+        * {
             margin: 0;
-            flex: 1;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        .header .booking-title {
-            color: #D32F2F;
-            padding-bottom: 5px;
-            font-size: 20pt;
-            font-weight: bold;
-        }
-
-        .table-container {
-            border: 1px solid #ccc;
-            margin: 20px 0;
-            padding: 10px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th,
-        td {
-            border: 1px solid #ccc;
-            padding: 8px;
-            text-align: left;
-        }
-
-        .special-offers {
-            background-color: #e0e0e0;
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 5px;
-
-        }
-
-        .special-offers .hotel-name {
-            margin-top: 0px;
-            margin-bottom: 15px;
-            color: #D32F2F;
-            font-size: 18pt;
-            letter-spacing: 1px;
-            font-weight: bold;
-        }
-
-        .footer {
-            text-align: center;
-            font-size: 12px;
-            color: #666;
+        body {
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            color: #2c3e50;
+            background: #fff;
         }
 
         #pdf-content {
-            margin-top: 10px;
-            margin-right: 20px;
-            margin-left: 10px;
+            max-width: 595px;
+            margin: 0 auto;
+            padding: 30px 35px 20px 35px;
         }
 
-        @media only screen and (min-height: 600px) {
-            .footer {
-                margin-top: 200px;
+        /* ===== HEADER ===== */
+        .header {
+            text-align: center;
+            padding-bottom: 18px;
+            border-bottom: 3px solid #1a3c5e;
+            margin-bottom: 0;
+        }
+
+        .hotel-brand {
+            font-size: 26pt;
+            font-weight: 700;
+            color: #1a3c5e;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 2px;
+        }
+
+        .hotel-contact-header {
+            font-size: 9pt;
+            color: #7f8c8d;
+            letter-spacing: 0.5px;
+            margin-top: 4px;
+        }
+
+        /* ===== TITLE SECTION ===== */
+        .title-section {
+            background: linear-gradient(135deg, #1a3c5e 0%, #2c5f8a 100%);
+            color: #ffffff;
+            text-align: center;
+            padding: 16px 20px;
+            margin-bottom: 22px;
+        }
+
+        .booking-title {
+            font-size: 16pt;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .booking-subtitle {
+            font-size: 8.5pt;
+            margin-top: 6px;
+            opacity: 0.9;
+            font-style: italic;
+        }
+
+        /* ===== BOOKING CODE HIGHLIGHT ===== */
+        .booking-code-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .booking-code-box {
+            border: 2px dashed #c0943b;
+            padding: 8px 30px;
+            text-align: center;
+            background: #fefdf5;
+        }
+
+        .booking-code-label {
+            font-size: 8pt;
+            color: #7f8c8d;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .booking-code-value {
+            font-size: 16pt;
+            font-weight: 700;
+            color: #1a3c5e;
+            letter-spacing: 3px;
+        }
+
+        /* ===== INFO GRID ===== */
+        .info-section {
+            margin-bottom: 18px;
+        }
+
+        .section-label {
+            font-size: 9pt;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #1a3c5e;
+            letter-spacing: 1.5px;
+            padding-bottom: 6px;
+            border-bottom: 1.5px solid #d5dce4;
+            margin-bottom: 10px;
+        }
+
+        .info-grid {
+            display: table;
+            width: 100%;
+        }
+
+        .info-row {
+            display: table-row;
+        }
+
+        .info-label {
+            display: table-cell;
+            padding: 7px 10px 7px 0;
+            font-size: 9.5pt;
+            color: #5a6a7a;
+            width: 38%;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: middle;
+        }
+
+        .info-value {
+            display: table-cell;
+            padding: 7px 0;
+            font-size: 10pt;
+            font-weight: 600;
+            color: #2c3e50;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: middle;
+        }
+
+        .info-row:last-child .info-label,
+        .info-row:last-child .info-value {
+            border-bottom: none;
+        }
+
+        /* ===== FINANCIAL SECTION ===== */
+        .financial-section {
+            background: #f8f9fa;
+            border: 1px solid #e2e8ee;
+            padding: 14px 18px;
+            margin-bottom: 18px;
+        }
+
+        .financial-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 0;
+            font-size: 9.5pt;
+        }
+
+        .financial-row:not(:last-child) {
+            border-bottom: 1px dotted #d5dce4;
+        }
+
+        .financial-label {
+            color: #5a6a7a;
+        }
+
+        .financial-value {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .financial-row.total {
+            padding-top: 10px;
+            margin-top: 4px;
+            border-top: 2px solid #1a3c5e;
+            border-bottom: none !important;
+        }
+
+        .financial-row.total .financial-label {
+            font-size: 10.5pt;
+            font-weight: 700;
+            color: #1a3c5e;
+        }
+
+        .financial-row.total .financial-value {
+            font-size: 12pt;
+            font-weight: 700;
+            color: #c0943b;
+        }
+
+        /* ===== NOTE ===== */
+        .note-section {
+            margin-bottom: 18px;
+        }
+
+        .note-box {
+            background: #fff9ed;
+            border-left: 3px solid #c0943b;
+            padding: 10px 14px;
+            font-size: 9pt;
+            color: #5a6a7a;
+            min-height: 30px;
+        }
+
+        .note-label-inline {
+            font-weight: 700;
+            color: #c0943b;
+            margin-right: 6px;
+        }
+
+        /* ===== DIVIDER ===== */
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 18px 0;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #d5dce4;
+        }
+
+        .divider-icon {
+            margin: 0 12px;
+            color: #c0943b;
+            font-size: 10pt;
+        }
+
+        /* ===== HOTEL INFO FOOTER ===== */
+        .hotel-info-footer {
+            background: #1a3c5e;
+            color: #ffffff;
+            padding: 16px 20px;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        .hotel-info-left {
+            flex: 1;
+        }
+
+        .hotel-footer-name {
+            font-size: 13pt;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            margin-bottom: 8px;
+        }
+
+        .hotel-footer-detail {
+            font-size: 8.5pt;
+            opacity: 0.85;
+            line-height: 1.8;
+        }
+
+        .hotel-footer-detail .icon-text {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .hotel-footer-detail svg {
+            width: 12px;
+            height: 12px;
+            fill: #c0943b;
+            flex-shrink: 0;
+        }
+
+        /* ===== PAGE FOOTER ===== */
+        .footer {
+            text-align: center;
+            font-size: 7.5pt;
+            color: #95a5a6;
+            padding-top: 8px;
+            border-top: 1px solid #ecf0f1;
+            letter-spacing: 0.5px;
+        }
+
+        /* ===== PRINT OPTIMIZATION ===== */
+        @media print {
+            body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
             }
-        }
 
-        @media only screen and (min-height: 800px) {
-            .footer {
-                margin-top: 250px;
-            }
-        }
-
-        @media only screen and (min-height: 1200px) {
-            .footer {
-                margin-top: 300px;
+            #pdf-content {
+                padding: 20px 30px;
             }
         }
     </style>
@@ -106,73 +306,125 @@
 
 <body>
     <div id="pdf-content">
+
+        <!-- HEADER -->
         <div class="header">
-            <div>
-                <span class="booking-title" data-key="bookingConfirmationTitle"></span><br>
-                <span data-key="bookingConfirmationText"></span>
+            <div class="hotel-brand hotelName">SA Hotel</div>
+            <div class="hotel-contact-header">
+                <span data-key="tel"></span> <span data-value="hotelPhone"></span>
+                &nbsp;&bull;&nbsp;
+                <span data-key="address"></span> <span data-value="hotelAddress"></span>
             </div>
         </div>
 
-        <div class="table-container">
-            <table>
-                <tr>
-                    <th data-key="customer">Khách hàng:</th>
-                    <td data-value="customerName">Nguyễn Văn A</td>
-                </tr>
-                <tr>
-                    <td data-key="phone">Số điện thoại:</td>
-                    <td data-value="customerPhone">012345678</td>
-                </tr>
-                <tr>
-                    <td data-key="bookingCode">Mã đặt phòng:</td>
-                    <td data-value="bookingCode">XXXX-XXXX</td>
-                </tr>
-                <tr>
-                    <td data-key="bookingDate">Ngày đặt phòng:</td>
-                    <td data-value="bookingDate">2024/1/1</td>
-                </tr>
-                <tr>
-                    <td data-key="roomQuantity">Số lượng phòng:</td>
-                    <td data-value="roomQuantity">1</td>
-                </tr>
-                <tr>
-                    <td data-key="roomType">Loại phòng:</td>
-                    <td data-value="roomType">Phòng đơn</td>
-                </tr>
-                <tr>
-                    <td data-key="checkInDate">Ngày nhận phòng:</td>
-                    <td data-value="bookingDateStart">2020/2/2</td>
-                </tr>
-                <tr>
-                    <td data-key="checkOutDate">Ngày trả phòng:</td>
-                    <td data-value="bookingDateEnd">2020/2/5</td>
-                </tr>
-                <tr>
-                    <td data-key="totalAmount">Số tiền:</td>
-                    <td data-value="totalAmount">0</td>
-                </tr>
-                <tr>
-                    <td data-key="depositAmount">Số tiền cọc:</td>
-                    <td data-value="depositAmount">0</td>
-                </tr>
-                <tr>
-                    <td data-key="remainingAmount">Số tiền còn lại:</td>
-                    <td data-value="remainingAmount">0</td>
-                </tr>
-                <tr>
-                    <td data-key="note">Ghi chú:</td>
-                    <td data-value="note"></td>
-                </tr>
-            </table>
+        <!-- TITLE -->
+        <div class="title-section">
+            <div class="booking-title" data-key="bookingConfirmationTitle"></div>
+            <div class="booking-subtitle" data-key="bookingConfirmationText"></div>
         </div>
 
-        <div class="special-offers">
-            <span class="hotel-name"><strong class="hotelName"></strong></span><br><br>
-            <span data-key="tel"></span>&nbsp;<strong data-value="hotelPhone"></strong><br><br>
-            <span data-key="address"></span>&nbsp;<strong data-value="hotelAddress"></strong>
+        <!-- BOOKING CODE HIGHLIGHT -->
+        <div class="booking-code-section">
+            <div class="booking-code-box">
+                <div class="booking-code-label" data-key="bookingCode"></div>
+                <div class="booking-code-value" data-value="bookingCode">XXXX-XXXX</div>
+            </div>
         </div>
+
+        <!-- GUEST INFO -->
+        <div class="info-section">
+            <div class="section-label" data-key="guestInfo"></div>
+            <div class="info-grid">
+                <div class="info-row">
+                    <div class="info-label" data-key="customer"></div>
+                    <div class="info-value" data-value="customerName">Nguyễn Văn A</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label" data-key="phone"></div>
+                    <div class="info-value" data-value="customerPhone">012345678</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ROOM DETAILS -->
+        <div class="info-section">
+            <div class="section-label" data-key="roomDetails"></div>
+            <div class="info-grid">
+                <div class="info-row">
+                    <div class="info-label" data-key="bookingDate"></div>
+                    <div class="info-value" data-value="bookingDate">2024/1/1</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label" data-key="roomType"></div>
+                    <div class="info-value" data-value="roomType">Phòng đơn</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label" data-key="roomQuantity"></div>
+                    <div class="info-value" data-value="roomQuantity">1</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label" data-key="checkInDate"></div>
+                    <div class="info-value" data-value="bookingDateStart">2020/2/2</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label" data-key="checkOutDate"></div>
+                    <div class="info-value" data-value="bookingDateEnd">2020/2/5</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FINANCIAL -->
+        <div class="info-section">
+            <div class="section-label" data-key="paymentInfo"></div>
+            <div class="financial-section">
+                <div class="financial-row total">
+                    <span class="financial-label" data-key="totalAmount"></span>
+                    <span class="financial-value" data-value="totalAmount">0</span>
+                </div>
+                <div class="financial-row">
+                    <span class="financial-label" data-key="depositAmount"></span>
+                    <span class="financial-value" data-value="depositAmount">0</span>
+                </div>
+                <div class="financial-row">
+                    <span class="financial-label" data-key="remainingAmount"></span>
+                    <span class="financial-value" data-value="remainingAmount">0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- NOTE -->
+        <div class="note-section">
+            <div class="note-box">
+                <span class="note-label-inline" data-key="note"></span>
+                <span data-value="note"></span>
+            </div>
+        </div>
+
+        <!-- DIVIDER -->
+        <div class="divider">
+            <span class="divider-icon">&#9830;</span>
+        </div>
+
+        <!-- HOTEL INFO FOOTER -->
+        <div class="hotel-info-footer">
+            <div class="hotel-info-left">
+                <div class="hotel-footer-name hotelName">SA Hotel</div>
+                <div class="hotel-footer-detail">
+                    <div class="icon-text">
+                        <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1.003 1.003 0 011.01-.24c1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                        <span data-value="hotelPhone"></span>
+                    </div>
+                    <div class="icon-text">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+                        <span data-value="hotelAddress"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
         <div class="footer">
-            <p>Copyright © by SA TECHNOLOGY JSC</p>
+            Copyright &copy; by SA TECHNOLOGY JSC
         </div>
     </div>
 
@@ -188,14 +440,17 @@
                 "roomType": "Loại phòng",
                 "checkInDate": "Ngày nhận phòng",
                 "checkOutDate": "Ngày trả phòng",
-                "totalAmount": "Số tiền",
-                "depositAmount": "Số tiền cọc",
-                "remainingAmount": "Số tiền còn lại",
+                "totalAmount": "Tổng tiền",
+                "depositAmount": "Đã cọc",
+                "remainingAmount": "Còn lại",
                 "note": "Ghi chú",
                 "bookingConfirmationTitle": "Xác nhận đặt phòng",
                 "bookingConfirmationText": "Vui lòng xuất trình xác nhận này tại quầy lễ tân để hoàn tất thủ tục nhận phòng.",
-                "tel": "Điện thoại",
-                "address": "Địa chỉ"
+                "tel": "ĐT:",
+                "address": "Địa chỉ:",
+                "guestInfo": "Thông tin khách hàng",
+                "roomDetails": "Chi tiết phòng",
+                "paymentInfo": "Thanh toán"
             },
             "en": {
                 "customer": "Customer",
@@ -207,13 +462,16 @@
                 "checkInDate": "Check-in Date",
                 "checkOutDate": "Check-out Date",
                 "totalAmount": "Total Amount",
-                "depositAmount": "Deposit Amount",
-                "remainingAmount": "Remaining Amount",
+                "depositAmount": "Deposit",
+                "remainingAmount": "Remaining",
                 "note": "Note",
                 "bookingConfirmationTitle": "Booking Confirmation",
                 "bookingConfirmationText": "Please present this confirmation at the front desk to complete check-in.",
-                "tel": "Tel",
-                "address": "Address"
+                "tel": "Tel:",
+                "address": "Address:",
+                "guestInfo": "Guest Information",
+                "roomDetails": "Room Details",
+                "paymentInfo": "Payment"
             }
         };
 
@@ -226,7 +484,7 @@
         // Hàm thay đổi ngôn ngữ và nhận param từ URL
         function initData() {
 
-            // Lấy dữ liệu mới từ URL parameters mỗi khi chuyển đổi ngôn ngữ
+            // Lấy dữ liệu mới từ URL parameters
             const currentLanguage = getUrlParameter('i18n') || 'vi';
             const customerName = decodeURIComponent(getUrlParameter('customerName') || 'Nguyễn Văn A');
             const customerPhone = getUrlParameter('customerPhone') || '0999999999';
@@ -244,74 +502,46 @@
             const hotelName = decodeURIComponent(getUrlParameter('hotelName') || 'SA Hotel');
             const hotelAddress = decodeURIComponent(getUrlParameter('hotelAddress') || 'Tiền Hải - Thái Bình');
             const hotelPhone = getUrlParameter('hotelPhone') || '0888888888';
-            // Cập nhật các phần tử trong HTML sử dụng class cho hotelName
+
+            // Cập nhật hotelName
             const hotelNameElements = document.getElementsByClassName('hotelName');
             for (let element of hotelNameElements) {
                 element.textContent = hotelName;
             }
 
+            // Các key không thêm dấu ':'
+            const noColonKeys = [
+                'bookingConfirmationTitle', 'bookingConfirmationText',
+                'guestInfo', 'roomDetails', 'paymentInfo'
+            ];
+
             if (languages) {
                 // Cập nhật văn bản cho các phần tử có data-key
                 document.querySelectorAll('[data-key]').forEach(element => {
                     const key = element.getAttribute('data-key');
-                    if (key === 'bookingConfirmationTitle' || key === 'bookingConfirmationText') {
-                        element.textContent = languages[currentLanguage][key];
-                    } else {
-                        element.textContent = languages[currentLanguage][key] + ':';
+                    if (languages[currentLanguage][key] !== undefined) {
+                        if (noColonKeys.includes(key)) {
+                            element.textContent = languages[currentLanguage][key];
+                        } else {
+                            element.textContent = languages[currentLanguage][key] + ':';
+                        }
                     }
                 });
 
                 // Cập nhật giá trị dữ liệu (data-value) từ URL parameters
+                const dataMap = {
+                    customerName, customerPhone, bookingCode, bookingDate,
+                    roomQuantity, roomType, bookingDateStart, bookingDateEnd,
+                    totalAmount, depositAmount, remainingAmount, note,
+                    hotelName, hotelPhone, hotelAddress
+                };
+
                 document.querySelectorAll('[data-value]').forEach(element => {
                     const key = element.getAttribute('data-value');
-                    switch (key) {
-                        case 'customerName':
-                            element.textContent = customerName;
-                            break;
-                        case 'customerPhone':
-                            element.textContent = customerPhone;
-                            break;
-                        case 'bookingCode':
-                            element.textContent = bookingCode;
-                            break;
-                        case 'bookingDate':
-                            element.textContent = bookingDate;
-                            break;
-                        case 'roomQuantity':
-                            element.textContent = roomQuantity;
-                            break;
-                        case 'roomType':
-                            element.textContent = roomType;
-                            break;
-                        case 'bookingDateStart':
-                            element.textContent = bookingDateStart;
-                            break;
-                        case 'bookingDateEnd':
-                            element.textContent = bookingDateEnd;
-                            break;
-                        case 'totalAmount':
-                            element.textContent = totalAmount;
-                            break;
-                        case 'depositAmount':
-                            element.textContent = depositAmount;
-                            break;
-                        case 'remainingAmount':
-                            element.textContent = remainingAmount;
-                            break;
-                        case 'note':
-                            element.textContent = note;
-                            break;
-                        case 'hotelName':
-                            element.textContent = hotelName;
-                            break;
-                        case 'hotelPhone':
-                            element.textContent = hotelPhone;
-                            break;
-                        case 'hotelAddress':
-                            element.textContent = hotelAddress;
-                            break;
-                        default:
-                            element.textContent = '';
+                    if (dataMap[key] !== undefined) {
+                        element.textContent = dataMap[key];
+                    } else {
+                        element.textContent = '';
                     }
                 });
             }
@@ -323,16 +553,16 @@
 
             var element = document.getElementById('pdf-content');
             var opt = {
-                margin: 10,
+                margin: [10, 0, 10, 0],
                 filename: 'Booking_Confirmation.pdf',
                 image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 1, useCORS: true },
+                html2canvas: { scale: 2, useCORS: true, logging: false },
                 jsPDF: { unit: 'pt', format: 'a4', orientation: 'portrait' }
             };
 
             html2pdf().from(element).set(opt).outputPdf('blob').then(function (pdfBlob) {
                 const blobUrl = URL.createObjectURL(pdfBlob);
-                window.open(blobUrl); // Mở PDF ngay lập tức trong trình duyệt
+                window.open(blobUrl);
             });
         };
     </script>
