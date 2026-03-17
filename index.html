@@ -359,8 +359,8 @@
                     <div class="info-value" data-value="bookingDate">2024/1/1</div>
                 </div>
                 <div class="info-row">
-                    <div class="info-label" data-key="roomType"></div>
-                    <div class="info-value" data-value="roomType">Phòng đơn</div>
+                    <div class="info-label" data-key="roomBooking"></div>
+                    <div class="info-value" data-value="roomBooking">Phòng đơn</div>
                 </div>
                 <div class="info-row">
                     <div class="info-label" data-key="checkInDate"></div>
@@ -436,8 +436,7 @@
                 "phone": "Số điện thoại",
                 "bookingCode": "Mã đặt phòng",
                 "bookingDate": "Ngày đặt phòng",
-                "roomQuantity": "Số lượng phòng",
-                "roomType": "Loại phòng",
+                "roomBooking": "Phòng đặt",
                 "checkInDate": "Ngày nhận phòng",
                 "checkOutDate": "Ngày trả phòng",
                 "totalAmount": "Tổng tiền",
@@ -457,8 +456,7 @@
                 "phone": "Phone Number",
                 "bookingCode": "Booking Code",
                 "bookingDate": "Booking Date",
-                "roomQuantity": "Room Quantity",
-                "roomType": "Room Type",
+                "roomBooking": "Room Booking",
                 "checkInDate": "Check-in Date",
                 "checkOutDate": "Check-out Date",
                 "totalAmount": "Total Amount",
@@ -492,8 +490,7 @@
             const bookingDate = getUrlParameter('bookingDate') || '21-02-2025';
             const bookingDateStart = getUrlParameter('bookingDateStart') || '23-02-2025';
             const bookingDateEnd = getUrlParameter('bookingDateEnd') || '25-02-2025';
-            const roomQuantity = getUrlParameter('roomQuantity') || '1';
-            const roomType = decodeURIComponent(getUrlParameter('roomType') || 'Phòng VIP');
+            const roomBooking = decodeURIComponent(getUrlParameter('roomBooking') || 'Phòng VIP');
             const totalAmount = getUrlParameter('totalAmount') || '0';
             const depositAmount = getUrlParameter('depositAmount') || '0';
             const remainingAmount = getUrlParameter('remainingAmount') || '0';
@@ -531,7 +528,7 @@
                 // Cập nhật giá trị dữ liệu (data-value) từ URL parameters
                 const dataMap = {
                     customerName, customerPhone, bookingCode, bookingDate,
-                    roomType: roomType + ' (' + roomQuantity + ')',
+                    roomBooking,
                     bookingDateStart, bookingDateEnd,
                     totalAmount, depositAmount, remainingAmount, note,
                     hotelName, hotelPhone, hotelAddress
