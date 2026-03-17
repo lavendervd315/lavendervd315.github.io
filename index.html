@@ -132,19 +132,36 @@
                     <td data-value="bookingDate">2024/1/1</td>
                 </tr>
                 <tr>
-                    <td data-key="roomName">Tên phòng:</td>
-                    <td data-value="roomName">P202</td>
+                    <td data-key="roomQuantity">Số lượng phòng:</td>
+                    <td data-value="roomQuantity">1</td>
                 </tr>
                 <tr>
                     <td data-key="roomType">Loại phòng:</td>
                     <td data-value="roomType">Phòng đơn</td>
                 </tr>
-                <td data-key="checkInDate">Ngày nhận phòng:</td>
-                <td data-value="bookingDateStart">2020/2/2</td>
+                <tr>
+                    <td data-key="checkInDate">Ngày nhận phòng:</td>
+                    <td data-value="bookingDateStart">2020/2/2</td>
                 </tr>
                 <tr>
                     <td data-key="checkOutDate">Ngày trả phòng:</td>
                     <td data-value="bookingDateEnd">2020/2/5</td>
+                </tr>
+                <tr>
+                    <td data-key="totalAmount">Số tiền:</td>
+                    <td data-value="totalAmount">0</td>
+                </tr>
+                <tr>
+                    <td data-key="depositAmount">Số tiền cọc:</td>
+                    <td data-value="depositAmount">0</td>
+                </tr>
+                <tr>
+                    <td data-key="remainingAmount">Số tiền còn lại:</td>
+                    <td data-value="remainingAmount">0</td>
+                </tr>
+                <tr>
+                    <td data-key="note">Ghi chú:</td>
+                    <td data-value="note"></td>
                 </tr>
             </table>
         </div>
@@ -167,28 +184,36 @@
                 "phone": "Số điện thoại",
                 "bookingCode": "Mã đặt phòng",
                 "bookingDate": "Ngày đặt phòng",
-                "roomName": "Tên phòng",
+                "roomQuantity": "Số lượng phòng",
                 "roomType": "Loại phòng",
                 "checkInDate": "Ngày nhận phòng",
                 "checkOutDate": "Ngày trả phòng",
+                "totalAmount": "Số tiền",
+                "depositAmount": "Số tiền cọc",
+                "remainingAmount": "Số tiền còn lại",
+                "note": "Ghi chú",
                 "bookingConfirmationTitle": "Xác nhận đặt phòng",
                 "bookingConfirmationText": "Vui lòng xuất trình xác nhận này tại quầy lễ tân để hoàn tất thủ tục nhận phòng.",
-                "tel": "Điện thoại",  // Thêm key "tel"
-                "address": "Địa chỉ"  // Thêm key "address"
+                "tel": "Điện thoại",
+                "address": "Địa chỉ"
             },
             "en": {
                 "customer": "Customer",
                 "phone": "Phone Number",
                 "bookingCode": "Booking Code",
                 "bookingDate": "Booking Date",
-                "roomName": "Room Name",
+                "roomQuantity": "Room Quantity",
                 "roomType": "Room Type",
                 "checkInDate": "Check-in Date",
                 "checkOutDate": "Check-out Date",
+                "totalAmount": "Total Amount",
+                "depositAmount": "Deposit Amount",
+                "remainingAmount": "Remaining Amount",
+                "note": "Note",
                 "bookingConfirmationTitle": "Booking Confirmation",
                 "bookingConfirmationText": "Please present this confirmation at the front desk to complete check-in.",
-                "tel": "Tel",         // Thêm key "tel"
-                "address": "Address"  // Thêm key "address"
+                "tel": "Tel",
+                "address": "Address"
             }
         };
 
@@ -209,8 +234,12 @@
             const bookingDate = getUrlParameter('bookingDate') || '21-02-2025';
             const bookingDateStart = getUrlParameter('bookingDateStart') || '23-02-2025';
             const bookingDateEnd = getUrlParameter('bookingDateEnd') || '25-02-2025';
-            const roomName = getUrlParameter('roomName') || 'Phòng P202';
+            const roomQuantity = getUrlParameter('roomQuantity') || '1';
             const roomType = getUrlParameter('roomType') || 'Phòng VIP';
+            const totalAmount = getUrlParameter('totalAmount') || '0';
+            const depositAmount = getUrlParameter('depositAmount') || '0';
+            const remainingAmount = getUrlParameter('remainingAmount') || '0';
+            const note = getUrlParameter('note') || '';
 
             const hotelName = getUrlParameter('hotelName') || 'SA Hotel';
             const hotelAddress = getUrlParameter('hotelAddress') || 'Tiền Hải - Thái Bình';
@@ -248,8 +277,8 @@
                         case 'bookingDate':
                             element.textContent = bookingDate;
                             break;
-                        case 'roomName':
-                            element.textContent = roomName;
+                        case 'roomQuantity':
+                            element.textContent = roomQuantity;
                             break;
                         case 'roomType':
                             element.textContent = roomType;
@@ -259,6 +288,18 @@
                             break;
                         case 'bookingDateEnd':
                             element.textContent = bookingDateEnd;
+                            break;
+                        case 'totalAmount':
+                            element.textContent = totalAmount;
+                            break;
+                        case 'depositAmount':
+                            element.textContent = depositAmount;
+                            break;
+                        case 'remainingAmount':
+                            element.textContent = remainingAmount;
+                            break;
+                        case 'note':
+                            element.textContent = note;
                             break;
                         case 'hotelName':
                             element.textContent = hotelName;
