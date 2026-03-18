@@ -488,6 +488,23 @@
             }
         }
 
+        // Định dạng tiền tệ theo quy chuẩn quốc tế:
+        // - Việt Nam (vi-VN): dấu chấm phân tách hàng nghìn, VND không có phần thập phân. Ví dụ: 1.500.000
+        // - Quốc tế (en-US): dấu phẩy phân tách hàng nghìn, dấu chấm thập phân. Ví dụ: 1,500,000
+        function formatCurrency(value, lang) {
+            if (!value) return '0';
+            // Loại bỏ tất cả ký tự phân tách hiện có (dấu chấm, dấu phẩy, khoảng trắng)
+            const cleanValue = value.toString().replace(/[.,\s]/g, '');
+            const num = Number(cleanValue);
+            if (isNaN(num)) return value;
+            if (lang === 'en') {
+                // Quy chuẩn quốc tế: dấu phẩy phân tách hàng nghìn
+                return num.toLocaleString('en-US');
+            }
+            // Quy chuẩn Việt Nam: dấu chấm phân tách hàng nghìn
+            return num.toLocaleString('vi-VN');
+        }
+
         // Hàm thay đổi ngôn ngữ và nhận param từ URL
         function initData() {
 
@@ -500,9 +517,9 @@
             const bookingDateStart = getUrlParameter('bookingDateStart') || '23-02-2025';
             const bookingDateEnd = getUrlParameter('bookingDateEnd') || '25-02-2025';
             const roomBooking = safeDecode(getUrlParameter('roomBooking') || 'Phòng VIP');
-            const totalAmount = getUrlParameter('totalAmount') || '0';
-            const depositAmount = getUrlParameter('depositAmount') || '0';
-            const remainingAmount = getUrlParameter('remainingAmount') || '0';
+            const totalAmount = formatCurrency(getUrlParameter('totalAmount') || '0', currentLanguage);
+            const depositAmount = formatCurrency(getUrlParameter('depositAmount') || '0', currentLanguage);
+            const remainingAmount = formatCurrency(getUrlParameter('remainingAmount') || '0', currentLanguage);
             const note = safeDecode(getUrlParameter('note') || 'Không có ghi chú nào.');
 
             const hotelName = safeDecode(getUrlParameter('hotelName') || 'SA Hotel');
